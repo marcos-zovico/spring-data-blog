@@ -5,35 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Usuário</title>
-<style type="text/css">
-.campo {
-	margin-bottom: 1em;
-}
-
-.campo input:FOCUS, .campo select:FOCUS {
-	background: #f8f8f8;
-}
-
-.table {
-	width: 640px;
-	text-align: center;
-}
-
-fieldset {
-	width: 640px;
-	margin: 0 auto;
-}
-
-fieldset.group {
-	float: left;
-	margin-right: 2em;
-}
-
-.master {
-	width: 960px;
-	margin: 0 auto;
-}
-</style>
+<link type="text/css" rel="stylesheet" href="<c:url value="/css/style.css" />">
 
 </head>
 <body>
@@ -44,38 +16,30 @@ fieldset.group {
 		<form:hidden path="id" />
 		<fieldset>
 			<legend>Cadastro de usuários</legend>
-			<div>
-				<form:label path="nome">Nome do Usuário</form:label>
-				<br>
+			<div class="campo">
+				<form:label path="nome">Nome do Usuário</form:label><br>
 				<form:input path="nome" type="text" title="Inserir Nome" />
 			</div>
-			<br>
-			<div>
-				<form:label path="email">E-mail</form:label>
-				<br>
+			<div class="campo">
+				<form:label path="email">E-mail</form:label><br>
 				<form:input path="email" type="email" required="true" />
 			</div>
-			<div>
-				<form:label path="senha">Senha</form:label>
-				<br>
+			<div class="campo">
+				<form:label path="senha">Senha</form:label><br>
 				<form:password path="senha" required="true" />
 			</div>
-			<br>
-			<div>
+			<div class="campo">
 				<label for="file">Avatar</label> 
 				<input type="file" name="file" required="true" />
 			</div>
-			<br>
-			<div>
-				<form:label path="perfil">Perfil</form:label>
-				<br>
+			<div class="campo">
+				<form:label path="perfil">Perfil</form:label><br>
 				<form:select path="perfil" required="true">
 					<form:option value="ADMIN" label="ADMIN" />
 					<form:option value="AUTOR" label="AUTOR" />
 					<form:option value="LEITOR" label="LEITOR" />
 				</form:select>
 			</div>
-			<br>
 			<div>
 				<input type="submit" value="Salvar"> 
 				<input type="reset"	value="Limpar">

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -15,6 +16,12 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan("com.msouza.blog")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/css/**")
+		        .addResourceLocations("/WEB-INF/static/css/");
+	}
+	
 	@Bean(name = "multipartResolver")
 	public MultipartResolver multiPartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
