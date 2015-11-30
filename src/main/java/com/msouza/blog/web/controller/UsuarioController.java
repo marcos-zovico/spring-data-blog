@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.msouza.blog.entity.Avatar;
+import com.msouza.blog.entity.Perfil;
 import com.msouza.blog.entity.Usuario;
 import com.msouza.blog.service.AvatarService;
 import com.msouza.blog.service.Usuarioservice;
+import com.msouza.blog.web.editor.PerfilEditorSuport;
 
 @Controller
-@RequestMapping("usuario")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
 	@Autowired
@@ -27,6 +31,11 @@ public class UsuarioController {
 	
 	@Autowired
 	private AvatarService avatarService;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder){
+		binder.registerCustomEditor(Perfil.class, new PerfilEditorSuport());
+	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listUsuarios(ModelMap model){
@@ -56,6 +65,7 @@ public class UsuarioController {
 		Avatar avatar = avatarService.getAvatarByUpload(file);
 		usuario.setAvatar(avatar);
 		usuarioservice.save(usuario);
+		
 		
 		return "redirect:/usuario/perfil/"+ usuario.getId();
 	}

@@ -20,39 +20,39 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories("com.msouza.blog.repository")
 @EnableTransactionManagement
-@PropertySource("classpath:/application.properties")
+@PropertySource(value = "classpath:application.properties")
 public class SpringDataConfig {
-	
+
 	@Autowired
 	private Environment env;
-	
+
 	@Bean
-	public PlatformTransactionManager transactionManager(EntityManagerFactory factory){
+	public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
 		JpaTransactionManager manager = new JpaTransactionManager();
 		manager.setEntityManagerFactory(factory);
 		manager.setJpaDialect(new HibernateJpaDialect());
 		return manager;
 	}
-	
+
 	@Bean
-	public HibernateJpaVendorAdapter jpaVendorAdapter(){
+	public HibernateJpaVendorAdapter jpaVendorAdapter() {		
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setShowSql(env.getProperty("hibernate.show.sql", Boolean.class));
 		adapter.setGenerateDdl(env.getProperty("hibernate.ddl", Boolean.class));
 		return adapter;
 	}
-	
+
 	@Bean
-	public EntityManagerFactory entityManagerFactory(){
+	public EntityManagerFactory entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(jpaVendorAdapter());
 		factory.setPackagesToScan(env.getProperty("hibernate.package.scan"));
 		factory.setDataSource(dataSource());
 		factory.afterPropertiesSet();
-		
+
 		return factory.getObject();
 	}
-	
+
 	@Bean(name = "dataSource")
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
