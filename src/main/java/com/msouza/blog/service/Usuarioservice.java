@@ -59,4 +59,11 @@ public class Usuarioservice {
 		return repository.findAll();
 	}
 
+
+	@Transactional(readOnly = false)
+	public void updateSenha(Usuario usuario) {
+	repository.updateSenha(usuario.getSenha(), usuario.getId());
+		
+	}
+
 }
