@@ -21,6 +21,12 @@ public class Usuarioservice {
 	private UsuarioRepository repository;
 	
 	@Transactional(readOnly = false)
+	public void updateNameAndEmail(Usuario usuario) {
+		repository.updateNameAndEmail(usuario.getNome(), usuario.getEmail(), usuario.getId());
+	}
+	
+	
+	@Transactional(readOnly = false)
 	public void save(Usuario usuario){
 		if (usuario.getDataCadastro() == null) {
 			usuario.setDataCadastro(LocalDate.now());
@@ -52,4 +58,5 @@ public class Usuarioservice {
 	public List<Usuario> findAll(){
 		return repository.findAll();
 	}
+
 }

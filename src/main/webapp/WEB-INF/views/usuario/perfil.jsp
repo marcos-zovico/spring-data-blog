@@ -25,7 +25,8 @@
 				<td>${usuario.dataCadastro}</td>
 				<td>${usuario.perfil}</td>
 				<td>
-					<a href="#" title="Editar">&#9445</a>
+					<c:url var="update" value="/usuario/update/${usuario.id}" />
+					<a href="${update}" title="Editar">&#9445</a>
 					<a href="#" title="Excluir">&#9447</a>
 				</td>
 			</tr>

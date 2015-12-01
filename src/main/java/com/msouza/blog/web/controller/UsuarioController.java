@@ -1,6 +1,7 @@
 package com.msouza.blog.web.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,25 @@ public class UsuarioController {
 	public void initBinder(WebDataBinder binder){
 		binder.registerCustomEditor(Perfil.class, new PerfilEditorSuport());
 	}
+	
+	@RequestMapping(value = {"/update/{id}", "/update"},
+					method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView update(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") Usuario usuario){
+		ModelAndView view = new ModelAndView();
+		
+		if (id.isPresent()) {
+			usuario = usuarioservice.findById(id.get());
+			view.addObject("usuario", usuario);
+			view.setViewName("usuario/atualizar");
+			return view;
+		}
+		
+		usuarioservice.updateNameAndEmail(usuario);
+		
+		view.setViewName("redirect:/usuario/perfil/" + usuario.getId());
+		return view;
+	}
+	
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listUsuarios(ModelMap model){
