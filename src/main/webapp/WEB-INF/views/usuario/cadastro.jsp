@@ -9,6 +9,8 @@
 
 </head>
 <body>
+<c:import url="../menu.jsp"/>
+	<br>
 	<c:url var="save" value="/usuario/save" />
 	<form:form modelAttribute="usuario" action="${save}" method="post"
 		enctype="multipart/form-data">

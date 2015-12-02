@@ -9,10 +9,13 @@
 
 </head>
 <body>
+	<c:import url="../menu.jsp"/>
+	<br>
 	<fieldset>
 		<legend>Perfil</legend>
 		<table class="table">
 			<tr>
+				<th>Avatar</th>
 				<th>Nome do Usuário</th>
 				<th>E-mail</th>
 				<th>Data de cadastro</th>
@@ -20,6 +23,10 @@
 				<th>Acão</th>
 			</tr>
 			<tr>
+				<td>
+					<img src="<c:url value="/avatar/load/${usuario.avatar.id}"/>"
+						 style="width: 25px; height: 25px;">
+				</td>
 				<td>${usuario.nome}</td>
 				<td>${usuario.email}</td>
 				<td>${usuario.dataCadastro}</td>
