@@ -15,7 +15,7 @@ import com.msouza.blog.repository.UsuarioRepository;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-public class Usuarioservice {
+public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository repository;
@@ -51,7 +51,7 @@ public class Usuarioservice {
 		return repository.findByEmail(email);
 	}
 	
-	public Usuario findByEmail(Avatar avatar){
+	public Usuario findByAvatar(Avatar avatar){
 		return repository.findByAvatar(avatar);
 	}
 	

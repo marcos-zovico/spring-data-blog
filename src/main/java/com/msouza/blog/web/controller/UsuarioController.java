@@ -20,7 +20,7 @@ import com.msouza.blog.entity.Avatar;
 import com.msouza.blog.entity.Perfil;
 import com.msouza.blog.entity.Usuario;
 import com.msouza.blog.service.AvatarService;
-import com.msouza.blog.service.Usuarioservice;
+import com.msouza.blog.service.UsuarioService;
 import com.msouza.blog.web.editor.PerfilEditorSuport;
 
 @Controller
@@ -28,7 +28,7 @@ import com.msouza.blog.web.editor.PerfilEditorSuport;
 public class UsuarioController {
 
 	@Autowired
-	private Usuarioservice usuarioservice;
+	private UsuarioService usuarioservice;
 	
 	@Autowired
 	private AvatarService avatarService;
