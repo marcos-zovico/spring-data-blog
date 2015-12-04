@@ -18,6 +18,18 @@ public class AutorController {
 	@Autowired
 	private AutorService autorService;
 	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public ModelAndView preUpdate(@PathVariable("id") Long id){
+		ModelAndView view = new ModelAndView();
+		
+		Autor autor = autorService.findById(id);
+		view.addObject("autor", autor);
+		view.setViewName("autor/cadastro");
+		
+		return view;
+	}
+	
+	
 	@RequestMapping(value = "/perfil/{id}", method = RequestMethod.GET)
 	public ModelAndView getAutor(@PathVariable("id") Long id){
 		ModelAndView view = new ModelAndView();
@@ -32,6 +44,7 @@ public class AutorController {
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("autor") Autor autor){
+		
 		autorService.save(autor);
 		return "redirect:/autor/perfil/" + autor.getId();
 	}
