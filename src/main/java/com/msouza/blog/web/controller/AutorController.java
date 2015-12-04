@@ -18,12 +18,13 @@ public class AutorController {
 	@Autowired
 	private AutorService autorService;
 	
+	@RequestMapping(value = "/perfil/{id}", method = RequestMethod.GET)
 	public ModelAndView getAutor(@PathVariable("id") Long id){
 		ModelAndView view = new ModelAndView();
 		
 		Autor autor = autorService.findById(id);
 		view.addObject("autor", autor);
-		view.setViewName("auotor/perfil");
+		view.setViewName("autor/perfil");
 		
 		return view;
 		

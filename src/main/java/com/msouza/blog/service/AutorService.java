@@ -17,7 +17,7 @@ public class AutorService {
 	@Autowired
 	private AutorRepository repository;
 	
-	
+	@Transactional(readOnly = false)
 	public void save(Autor autor){
 		repository.save(autor);
 	}
