@@ -48,7 +48,7 @@ public class PostagemService {
 	}
 
 	private void save(Postagem postagem) {
-		String permaLink = MyReplaceString.formatarPermaLink(postagem.getPermaLink());
+		String permaLink = MyReplaceString.formatarPermaLink(postagem.getTitulo());
 		postagem.setPermaLink(permaLink);
 		postagem.setDataPostagem(LocalDateTime.now());
 		repository.save(postagem);
