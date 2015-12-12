@@ -1,8 +1,11 @@
 package com.msouza.blog.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,6 +26,9 @@ public class Autor extends AbstractPersistable<Long> {
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "autor")
+	private List<Postagem> postagens;
 	
 	@Override
 	public void setId(Long id) {
@@ -52,6 +58,16 @@ public class Autor extends AbstractPersistable<Long> {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public List<Postagem> getPostagens() {
+		return postagens;
+	}
+
+	public void setPostagens(List<Postagem> postagens) {
+		this.postagens = postagens;
+	}
+	
+	
 	
 	
 }
