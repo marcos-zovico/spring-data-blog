@@ -16,9 +16,10 @@ public class MyReplaceString {
 		
 		link = link.replaceAll("\\s", "_");
 		
+		link = link.replaceAll("\\W", "");
+
 		link = link.replaceAll("\\_+", "_");
 		
-		link = link.replaceAll("\\w", "");
 
 		return link;
 	}
