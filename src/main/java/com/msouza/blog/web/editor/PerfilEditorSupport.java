@@ -5,7 +5,7 @@ import java.beans.PropertyEditorSupport;
 
 import com.msouza.blog.entity.Perfil;
 
-public class PerfilEditorSuport extends PropertyEditorSupport {
+public class PerfilEditorSupport extends PropertyEditorSupport {
 
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {

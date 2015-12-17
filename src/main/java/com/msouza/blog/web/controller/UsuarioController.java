@@ -21,7 +21,7 @@ import com.msouza.blog.entity.Perfil;
 import com.msouza.blog.entity.Usuario;
 import com.msouza.blog.service.AvatarService;
 import com.msouza.blog.service.UsuarioService;
-import com.msouza.blog.web.editor.PerfilEditorSuport;
+import com.msouza.blog.web.editor.PerfilEditorSupport;
 
 @Controller
 @RequestMapping("/usuario")
@@ -35,7 +35,7 @@ public class UsuarioController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
-		binder.registerCustomEditor(Perfil.class, new PerfilEditorSuport());
+		binder.registerCustomEditor(Perfil.class, new PerfilEditorSupport());
 	}
 	
 	@RequestMapping(value = {"/update/senha/{id}", "/update/senha"},
