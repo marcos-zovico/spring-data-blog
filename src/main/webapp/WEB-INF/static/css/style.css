@@ -25,3 +25,9 @@ fieldset.group {
 	width: 960px;
 	margin: 0 auto;
 }
+
+.header{
+	text-align: center;
+	font-family: monospace;
+	
+}
