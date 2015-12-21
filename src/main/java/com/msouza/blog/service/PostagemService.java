@@ -72,5 +72,14 @@ public class PostagemService {
 		repository.save(postagem);
 	}
 
+	public List<Postagem> findByCategoria(String link) {
+		
+		return repository.findByCategoriasPermaLink(link);
+	}
+
+	public List<Postagem> findByAutor(String nome) {
+		return repository.findByAutorNome(nome);
+	}
+
 
 }
