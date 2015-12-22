@@ -21,10 +21,16 @@
 				<div>
 					<h2>${p.titulo}</h2>
 					<p>Autor: <a href="<c:url value="/autor/${p.autor.nome}"/>" > ${p.autor.nome}</a>
-					 | Data: ${p.dataPostagem}</p>
+					 | <fmt:parseDate var="date" value="${p.dataPostagem}" pattern="yyyy-MM-dd'T'HH:mm:ss"/> 
+					 Data: <fmt:formatDate value="${date}" type="both"/>
+					  </p>
 				</div>
 				<div>
-					<p>${p.texto}</p>
+					<p>
+						<c:forTokens var="resumo" items="${p.texto}" delims=" " begin="0" end="60">
+							${resumo}
+						</c:forTokens>...
+					</p>
 				</div>
 				<div>
 					<p>
