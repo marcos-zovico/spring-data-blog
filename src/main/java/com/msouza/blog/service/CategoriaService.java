@@ -3,6 +3,9 @@ package com.msouza.blog.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +23,8 @@ public class CategoriaService {
 	
 	
 	public List<Categoria> findAll(){
-		return repository.findAll();
+		Sort sort = new Sort(new Order(Direction.ASC, "descricao"));
+		return repository.findAll(sort);
 	}
 	
 	public Categoria findByDescricao(String descricao){

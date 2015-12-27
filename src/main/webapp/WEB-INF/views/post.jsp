@@ -34,6 +34,11 @@
 						</c:forEach>
 					</p>
 				</div>
+				<div class="post-autor">
+					<img class="post-avatar" src="<c:url value="/avatar/load/${postagem.autor.usuario.avatar.id}"/>">
+					<p><strong>${postagem.autor.nome}</strong></p>
+					<p>${postagem.autor.biografia}</p>
+				</div>
 			</div>
 	</fieldset>
 </body>

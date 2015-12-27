@@ -1,8 +1,27 @@
-a:link{
+a:link {
 	text-decoration: none;
 }
 
-.post-categ{
+.post-autor {
+	border: 2px solid #eee;
+	position: relative;
+	padding: 10px;
+	color: silver;
+	font-family: sans-serif;
+	text-align: justify;
+}
+
+.post-avatar{
+	float: left;
+	margin: 0 10px 0 0;
+	width: 64px;
+	height: auto;
+	position: relative;;
+	
+	
+}
+
+.post-categ {
 	margin-bottom: 40px;
 	font-family: monospace;
 }
@@ -25,7 +44,7 @@ a:link{
 	margin: 0 5px 2px 0;
 }
 
-.post-texto{
+.post-texto {
 	font-family: sans-serif;
 	font-size: 12pt;
 	text-align: justify;
@@ -61,8 +80,7 @@ fieldset.group {
 	margin: 0 auto;
 }
 
-.header{
+.header {
 	text-align: center;
 	font-family: monospace;
-	
 }
