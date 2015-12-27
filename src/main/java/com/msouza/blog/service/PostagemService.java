@@ -27,7 +27,7 @@ public class PostagemService {
 		return repository.findAll();
 	}
 	
-	public Postagem findPermaLink(String permaLink){
+	public Postagem findByPermaLink(String permaLink){
 		return repository.findByPermaLink(permaLink);
 	}
 

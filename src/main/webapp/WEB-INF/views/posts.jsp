@@ -19,24 +19,25 @@
 		<c:forEach var="p" items="${postagens}">
 			<div>
 				<div>
-					<h2>${p.titulo}</h2>
+					<h2><a href="<c:url value="/${p.permaLink}" />" title="${p.titulo}"> ${p.titulo}</a></h2>
 					<p>Autor: <a href="<c:url value="/autor/${p.autor.nome}"/>" > ${p.autor.nome}</a>
 					 | <fmt:parseDate var="date" value="${p.dataPostagem}" pattern="yyyy-MM-dd'T'HH:mm:ss"/> 
 					 Data: <fmt:formatDate value="${date}" type="both"/>
 					  </p>
 				</div>
 				<div>
-					<p>
+					<p class="post-texto">
 						<c:forTokens var="resumo" items="${p.texto}" delims=" " begin="0" end="60">
 							${resumo}
-						</c:forTokens>...
+						</c:forTokens><a href="<c:url value="/${p.permaLink}" />"> 
+						[Leia mais]</a>
 					</p>
 				</div>
 				<div>
-					<p>
+					<p class="post-categ">
 						<c:forEach var="c" items="${p.categorias}">
 						<a href="<c:url value="/categoria/${c.permaLink}"/>" title="${c.descricao}">
-						| ${c.descricao} </a>
+						 ${c.descricao} </a>
 						</c:forEach>
 					</p>
 				</div>
