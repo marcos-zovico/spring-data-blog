@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -46,6 +47,9 @@ public class Postagem extends AbstractPersistable<Long> {
 			inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
 	private List<Categoria> categorias;
+	
+	@OneToMany(mappedBy = "postagem", fetch = FetchType.EAGER)
+	private List<Comentario> comentarios;
 
 	@Override
 	public void setId(Long id) {
@@ -99,7 +103,14 @@ public class Postagem extends AbstractPersistable<Long> {
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-	
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
 	
 
 }
