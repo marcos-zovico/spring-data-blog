@@ -22,7 +22,8 @@
 					<h2><a href="<c:url value="/${p.permaLink}" />" title="${p.titulo}"> ${p.titulo}</a></h2>
 					<p>Autor: <a href="<c:url value="/autor/${p.autor.nome}"/>" > ${p.autor.nome}</a>
 					 | <fmt:parseDate var="date" value="${p.dataPostagem}" pattern="yyyy-MM-dd'T'HH:mm:ss"/> 
-					 Data: <fmt:formatDate value="${date}" type="both"/>
+					   Data: <fmt:formatDate value="${date}" type="both"/>
+					 | # ${fn:length(p.comentarios)} Comentario(s)
 					  </p>
 				</div>
 				<div>

@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 @Table(name = "comentarios")
-public class Comentario extends AbstractPersistable<Long> {
+public class Comentario extends AbstractPersistable<Long> implements Comparable<Comentario> {
 
 	private static final long serialVersionUID = 7751443601921669475L;
 
@@ -63,6 +63,10 @@ public class Comentario extends AbstractPersistable<Long> {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public int compareTo(Comentario comentario) {
+		return comentario.getDataComentario().compareTo(this.dataComentario);
 	}
 
 }
