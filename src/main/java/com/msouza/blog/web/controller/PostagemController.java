@@ -74,6 +74,5 @@ public class PostagemController {
 		ModelAndView view = new ModelAndView("postagem/cadastro");
 		view.addObject("categorias", categoriaService.findAll());
 		return view;
-
 	}
 }

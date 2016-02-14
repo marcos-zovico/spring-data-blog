@@ -24,6 +24,7 @@ public class Comentario extends AbstractPersistable<Long> {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Postagem postagem;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Usuario usuario;
 
