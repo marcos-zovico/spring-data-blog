@@ -1,6 +1,7 @@
 package com.msouza.blog.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,11 +20,23 @@ public class CategoriaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+	
+	@RequestMapping(value="/page/{page}", method=RequestMethod.GET)
+	public ModelAndView pageCategorias(@PathVariable("page") Integer pagina){
+		ModelAndView view = new ModelAndView("categoria/cadastro");
+		Page<Categoria> page = categoriaService.findByPagination(pagina - 1,  5);
+		view.addObject("page", page);
+		return view;
+	}
+	
+	
 	@RequestMapping(value = "/update/{id}", method =RequestMethod.GET)
 	public ModelAndView preUpdate(@PathVariable("id") Long id, ModelMap model){
 		
+		Page<Categoria> page = categoriaService.findByPagination(0,  5);
 		model.addAttribute("categoria", categoriaService.findById(id));
-		model.addAttribute("categorias", categoriaService.findAll());
+		model.addAttribute("page", page);
+		//		model.addAttribute("categorias", categoriaService.findAll());
 		
 		return new ModelAndView("categoria/cadastro", model);
 	}
@@ -46,8 +59,10 @@ public class CategoriaController {
 	@RequestMapping(value = "/add", method =RequestMethod.GET)
 	public ModelAndView cadastro(@ModelAttribute("categoria")Categoria categoria){
 		ModelAndView view = new ModelAndView();
+		Page<Categoria> page = categoriaService.findByPagination(0,  5);
 		
-		view.addObject("categorias", categoriaService.findAll());
+//		view.addObject("categorias", categoriaService.findAll());
+		view.addObject("page", page);
 		view.setViewName("categoria/cadastro");
 		
 		return view;
