@@ -1,9 +1,9 @@
 package com.msouza.blog.web.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -36,6 +36,18 @@ public class UsuarioController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.registerCustomEditor(Perfil.class, new PerfilEditorSupport());
+	}
+	
+	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
+	public ModelAndView pagUsuarios(@PathVariable("page") Integer pagina){
+		
+		ModelAndView view = new ModelAndView("usuario/list");
+		
+		Page<Usuario> page = usuarioservice.findByPagination(pagina - 1, 5);
+		
+		view.addObject("page", page);
+		
+		return view;
 	}
 	
 	@RequestMapping(value = {"/update/senha/{id}", "/update/senha"},
@@ -81,8 +93,12 @@ public class UsuarioController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listUsuarios(ModelMap model){
 		
-		List<Usuario> usuarios = usuarioservice.findAll();
-		model.addAttribute("usuarios", usuarios);
+		//List<Usuario> usuarios = usuarioservice.findAll();
+		//model.addAttribute("usuarios", usuarios);
+		
+		Page<Usuario> page = usuarioservice.findByPagination(0, 5);
+		model.addAttribute("page", page);
+	
 		return new ModelAndView("usuario/list", model);
 		
 	}

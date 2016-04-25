@@ -21,7 +21,7 @@
 				<th>Perfil</th>
 				<th>Acão</th>
 			</tr>
-			<c:forEach var="usuario" items="${usuarios}" varStatus="i">
+			<c:forEach var="usuario" items="${page.content}" varStatus="i">
 			<tr bgcolor='${i.count % 2!= 0 ? '#f1f1f1' : 'white' }'>
 				<td>
 					<a href="<c:url value="/avatar/update/${usuario.avatar.id}" />" title="Editar Avatar">
@@ -41,6 +41,24 @@
 			</tr>
 			</c:forEach>
 		</table>
+		<div align="center">
+		[
+			<c:forEach var="p" begin="1" end="${page.totalPages}">
+				<c:choose>
+					<c:when test="${(p - 1) eq page.number}">
+						<label style="font-size: 18pt">${p}</label>
+					</c:when>
+					<c:otherwise>
+						<label>
+							<a href="<c:url value="/usuario/page/${p}" />">
+								${p}
+							</a>
+						</label>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		]
+		</div>
 	</fieldset>
 </body>
 </html>
