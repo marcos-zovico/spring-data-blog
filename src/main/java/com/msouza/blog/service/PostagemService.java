@@ -90,5 +90,11 @@ public class PostagemService {
 		return repository.findByAutorNome(nome);
 	}
 
+	public Page<Postagem> findByPaginationByCategoria(int page, int size, String permalink) {
+		Pageable pageable = new PageRequest(page, size);
+		return repository
+				.findAllByCategoriasPermaLinkOrderByDataPostagemDesc(pageable, permalink);
+	}
+
 
 }
