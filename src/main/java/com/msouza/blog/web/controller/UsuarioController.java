@@ -38,14 +38,28 @@ public class UsuarioController {
 		binder.registerCustomEditor(Perfil.class, new PerfilEditorSupport());
 	}
 	
+	@RequestMapping(value = "/sort/{order}/{field}/page/{page}")
+	public ModelAndView pageUsuario(@PathVariable("page") Integer pagina, 
+									@PathVariable("order") String order, 
+									@PathVariable("field") String field){
+		
+		ModelAndView view = new ModelAndView("usuario/list");
+		Page<Usuario> page = usuarioservice.findByPaginationOrdeByField(pagina - 1, 5, field, order);
+		view.addObject("page", page );
+		view.addObject("urlPagination", "/usuario/sort/" + order + "/" + field + "/page");
+		
+		return view;
+	}
+	
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
-	public ModelAndView pagUsuarios(@PathVariable("page") Integer pagina){
+	public ModelAndView pageUsuarios(@PathVariable("page") Integer pagina){
 		
 		ModelAndView view = new ModelAndView("usuario/list");
 		
 		Page<Usuario> page = usuarioservice.findByPagination(pagina - 1, 5);
 		
 		view.addObject("page", page);
+		view.addObject("urlPagination", "/usuario/page");
 		
 		return view;
 	}
@@ -98,6 +112,7 @@ public class UsuarioController {
 		
 		Page<Usuario> page = usuarioservice.findByPagination(0, 5);
 		model.addAttribute("page", page);
+		model.addAttribute("urlPagination", "usuario/page");
 	
 		return new ModelAndView("usuario/list", model);
 		
