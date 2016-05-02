@@ -18,7 +18,7 @@
 			<div>
 				<div>
 					<h2>${postagem.titulo}</h2>
-					<p>Autor: <a href="<c:url value="/autor/${postagem.autor.nome}"/>" > ${postagem.autor.nome}</a>
+					<p>Autor: <a href="<c:url value="/autor/${postagem.autor.id}/page/1"/>" > ${postagem.autor.nome}</a>
 					 | <fmt:parseDate var="date" value="${postagem.dataPostagem}" pattern="yyyy-MM-dd'T'HH:mm:ss"/> 
 					 Data: <fmt:formatDate value="${date}" type="both"/>
 					  </p>
@@ -29,7 +29,7 @@
 				<div>
 					<p class="post-categ">
 						<c:forEach var="c" items="${postagem.categorias}">
-						<a href="<c:url value="/categoria/${c.permaLink}"/>" title="${c.descricao}">
+						<a href="<c:url value="/categoria/${c.permaLink}/page/1"/>" title="${c.descricao}">
 						 ${c.descricao} </a>
 						</c:forEach>
 					</p>

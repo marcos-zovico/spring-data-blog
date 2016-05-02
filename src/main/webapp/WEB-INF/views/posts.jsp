@@ -25,7 +25,7 @@
 							${p.titulo}</a>
 					</h2>
 					<p>
-						Autor: <a href="<c:url value="/autor/${p.autor.nome}"/>">
+						Autor: <a href="<c:url value="/autor/${p.autor.id}/page/1"/>">
 							${p.autor.nome}</a> |
 						<fmt:parseDate var="date" value="${p.dataPostagem}"
 							pattern="yyyy-MM-dd'T'HH:mm:ss" />
@@ -61,7 +61,7 @@
 						<label style="font-size: 18pt;">${p}</label>
 					</c:when>
 					<c:otherwise>
-						<a href="<c:url value="/page/${p}"/>">${p}</a>
+						<a href="<c:url value="${urlPagination}/${p}"/>">${p}</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>

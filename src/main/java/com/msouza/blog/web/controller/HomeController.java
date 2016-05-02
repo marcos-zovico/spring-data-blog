@@ -32,12 +32,17 @@ public class HomeController {
 		return new ModelAndView("post", model);
 	}
 
-	@RequestMapping(value = "/autor/{nome}", method = RequestMethod.GET)
-	public ModelAndView postesByAutor(@PathVariable("nome") String nome,
-			ModelMap model) {
-		List<Postagem> postagens = postagemService.findByAutor(nome);
-
-		model.addAttribute("postagens", postagens);
+	@RequestMapping(value = "/autor/{id}/page/{page}", method = RequestMethod.GET)
+	public ModelAndView postesByAutor(@PathVariable("id") Long id, 
+									  @PathVariable("page") Integer pagina,
+									  ModelMap model) {
+//		List<Postagem> postagens = postagemService.findByAutor(nome);
+//		model.addAttribute("postagens", postagens);
+		
+		Page<Postagem> page = postagemService.findByPaginationByAutor(pagina - 1, 5, id);
+		model.addAttribute("page", page);
+		model.addAttribute("urlPagination", "/autor/" + id + "/page");
+		
 		return new ModelAndView("posts", model);
 	}
 
@@ -49,6 +54,7 @@ public class HomeController {
 //		model.addAttribute("postagens", postagens);
 		Page<Postagem> page = postagemService.findByPaginationByCategoria(pagina - 1, 5, link);
 		model.addAttribute("page", page);
+		model.addAttribute("urlPagination", "/categoria/" + link + "/page");
 		
 		return new ModelAndView("posts", model);
 	}
@@ -56,7 +62,9 @@ public class HomeController {
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
 	public ModelAndView pageHome(@PathVariable("page") Integer pagina, ModelMap model) {
 		Page<Postagem> page = postagemService.findByPagination(pagina -1, 5);
+		
 		model.addAttribute("page", page);
+		model.addAttribute("urlPagination", "/page");
 		
 		return new ModelAndView("posts", model);
 	}
@@ -68,6 +76,7 @@ public class HomeController {
 		
 		Page<Postagem> page = postagemService.findByPagination(0, 5);
 		model.addAttribute("page", page);
+		model.addAttribute("urlPagination", "/page");
 
 		return new ModelAndView("posts", model);
 	}

@@ -96,5 +96,11 @@ public class PostagemService {
 				.findAllByCategoriasPermaLinkOrderByDataPostagemDesc(pageable, permalink);
 	}
 
+	public Page<Postagem> findByPaginationByAutor(int page, int size, Long id) {
+	Pageable pageable = new PageRequest(page, size);
+	return repository.findAllByAutorIdOrderByDataPostagemDesc(pageable, id);
+		
+	}
+
 
 }
