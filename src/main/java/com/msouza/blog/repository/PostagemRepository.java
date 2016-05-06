@@ -8,18 +8,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.msouza.blog.entity.Postagem;
 
-
-public interface PostagemRepository extends JpaRepository<Postagem, Long>{
+public interface PostagemRepository extends JpaRepository<Postagem, Long> {
 
 	Page<Postagem> findAllByOrderByDataPostagemDesc(Pageable pageable);
-	
+
 	Postagem findByPermaLink(String permaLink);
 
 	List<Postagem> findByCategoriasPermaLink(String link);
 
 	List<Postagem> findByAutorNome(String nome);
 
-	Page<Postagem> findAllByCategoriasPermaLinkOrderByDataPostagemDesc(Pageable pageable, String permalink);
+	Page<Postagem> findAllByCategoriasPermaLinkOrderByDataPostagemDesc(
+			Pageable pageable, String permalink);
 
-	Page<Postagem> findAllByAutorIdOrderByDataPostagemDesc(Pageable pageable, Long id);
+	Page<Postagem> findAllByAutorIdOrderByDataPostagemDesc(Pageable pageable,
+			Long id);
+
+	Page<Postagem> findByTextoContainingIgnoreCaseOrderByDataPostagemDesc(
+			String texto, Pageable pageable);
 }

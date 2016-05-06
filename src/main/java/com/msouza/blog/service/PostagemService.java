@@ -102,5 +102,9 @@ public class PostagemService {
 		
 	}
 
+	public Page<Postagem> findByTexto(int page, int size, String texto) {
+		return repository.findByTextoContainingIgnoreCaseOrderByDataPostagemDesc(texto, new PageRequest(page, size));
+	}
+
 
 }
