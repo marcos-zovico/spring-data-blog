@@ -27,6 +27,7 @@ public class CategoriaController {
 		ModelAndView view = new ModelAndView("categoria/cadastro");
 		Page<Categoria> page = categoriaService.findByPagination(pagina - 1,  5);
 		view.addObject("page", page);
+		view.addObject("urlPagination", "/categoria/page");
 		return view;
 	}
 	
@@ -37,6 +38,7 @@ public class CategoriaController {
 		Page<Categoria> page = categoriaService.findByPagination(0,  5);
 		model.addAttribute("categoria", categoriaService.findById(id));
 		model.addAttribute("page", page);
+		model.addAttribute("urlPagination", "/categoria/page");
 		//		model.addAttribute("categorias", categoriaService.findAll());
 		
 		return new ModelAndView("categoria/cadastro", model);
@@ -65,6 +67,7 @@ public class CategoriaController {
 //		view.addObject("categorias", categoriaService.findAll());
 		view.addObject("page", page);
 		view.setViewName("categoria/cadastro");
+		view.addObject("urlPagination", "/categoria/page");
 		
 		return view;
 	}

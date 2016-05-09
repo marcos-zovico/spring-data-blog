@@ -59,20 +59,9 @@
 				</div>
 			</div>
 		</c:forEach>
-		<div align="center">
-			[
-			<c:forEach var="p" begin="1" end="${page.totalPages}">
-				<c:choose>
-					<c:when test="${ (p-1) eq page.number }">
-						<label style="font-size: 18pt;">${p}</label>
-					</c:when>
-					<c:otherwise>
-						<a href="<c:url value="${urlPagination}/${p}"/>">${p}</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			]
-		</div>
+		
+		<c:import url="paginacao.jsp"></c:import>
+
 	</fieldset>
 </body>
 </html>
