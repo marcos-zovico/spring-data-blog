@@ -20,6 +20,9 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**")
 		        .addResourceLocations("/WEB-INF/static/css/");
+		
+		registry.addResourceHandler("/js/**")
+                .addResourceLocations("/WEB-INF/static/js/");
 	}
 	
 	@Bean(name = "multipartResolver")
