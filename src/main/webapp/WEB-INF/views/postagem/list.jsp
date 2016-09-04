@@ -23,7 +23,7 @@
 				<th>Ação</th>
 			</tr>	
 			<tbody id="tbody">
-				<jsp:include page="table-rows.jsp"></jsp:include>
+				<jsp:include page="table-rows.jsp"/>
 			</tbody>
 		</table>
 		

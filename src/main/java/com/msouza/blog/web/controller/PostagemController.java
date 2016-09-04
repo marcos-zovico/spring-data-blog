@@ -35,13 +35,15 @@ public class PostagemController {
 				List.class, categoriaService));
 	}
 
-	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
-	public ModelAndView pagePostagens(@PathVariable("page") Integer pagina){
-		ModelAndView view = new ModelAndView("postagem/list");
+	@RequestMapping(value = "/ajax/page/{page}", method = RequestMethod.GET)
+	public ModelAndView pagePostagens(@PathVariable("page") Integer pagina) {
+		
+		ModelAndView view = new ModelAndView("postagem/table-rows"); 
+		
 		Page<Postagem> page = postagemService.findByPagination(pagina - 1, 5);
 		
 		view.addObject("page", page);
-		view.addObject("urlPagination", "/postagem/page");
+		//view.addObject("urlPagination", "/postagem/page");
 		
 		return view;
 	}
@@ -69,7 +71,7 @@ public class PostagemController {
 		//model.addAttribute("postagens", postagemService.findAll());
 		Page<Postagem> page = postagemService.findByPagination(0, 5);
 		model.addAttribute("page", page);
-		model.addAttribute("urlPagination", "/postagem/page");
+//		model.addAttribute("urlPagination", "/postagem/page");
 		
 		return new ModelAndView("postagem/list");
 
