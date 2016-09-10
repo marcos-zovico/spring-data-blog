@@ -3,7 +3,26 @@ $(document).ready(function(){
 		var pageNumber = $(this).val();
 		tbody(pageNumber);
 	});
+	
+	$('#search').keyup(function (){
+		var value = $(this).val();	
+		search(value);
+	});
+	
 });
+
+function search(value) {
+	var url = "/blog/postagem/ajax/titulo/" + value;
+	
+	$('#tbody').load(url, function(response, status, xhr) {
+		if ( status == "error" ) {
+		    var msg = "Sorry but there was an error: ";
+		    $( "#info" ).html( msg + xhr.status + " " + xhr.statusText );
+		 }
+	});
+	
+	
+}
 
 
 function tbody(page) {

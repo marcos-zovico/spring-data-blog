@@ -106,5 +106,10 @@ public class PostagemService {
 		return repository.findByTextoContainingIgnoreCaseOrderByDataPostagemDesc(texto, new PageRequest(page, size));
 	}
 
+	public Page<Postagem> findByTitulo(int page, int size, String titulo) {
+		Pageable pageable = new PageRequest(page, size);
+		return repository.findByTituloContainingIgnoreCaseOrderByDataPostagemDesc(pageable, titulo);
+	}
+
 
 }
