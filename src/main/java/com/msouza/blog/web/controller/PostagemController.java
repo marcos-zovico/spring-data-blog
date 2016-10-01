@@ -35,12 +35,13 @@ public class PostagemController {
 				List.class, categoriaService));
 	}
 
-	@RequestMapping(value = "/ajax/titulo/{titulo}", method = RequestMethod.GET)
-	public ModelAndView searchByAjax(@PathVariable("titulo") String titulo) {
+	@RequestMapping(value = "/ajax/titulo/{titulo}/page/{page}", method = RequestMethod.GET)
+	public ModelAndView searchByAjax(@PathVariable("titulo") String titulo,
+									 @PathVariable("page") Integer pagina) {
 		
 		ModelAndView view = new ModelAndView("postagem/table-rows"); 
 		
-		Page<Postagem> page = postagemService.findByTitulo(0, 5, titulo);
+		Page<Postagem> page = postagemService.findByTitulo(pagina - 1 , 5, titulo);
 		
 		view.addObject("page", page);
 		
