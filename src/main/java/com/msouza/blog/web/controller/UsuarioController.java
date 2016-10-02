@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +24,7 @@ import com.msouza.blog.entity.Usuario;
 import com.msouza.blog.service.AvatarService;
 import com.msouza.blog.service.UsuarioService;
 import com.msouza.blog.web.editor.PerfilEditorSupport;
+import com.msouza.blog.web.validator.UsuarioValidator;
 
 @Controller
 @RequestMapping("/usuario")
@@ -36,6 +39,7 @@ public class UsuarioController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.registerCustomEditor(Perfil.class, new PerfilEditorSupport());
+		binder.setValidator(new UsuarioValidator());
 	}
 	
 	@RequestMapping(value = "/sort/{order}/{field}/page/{page}")
@@ -131,10 +135,13 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@ModelAttribute("usuario") Usuario usuario,
-					   @RequestParam(value = "file", required = false) MultipartFile file){
+	public String save(@ModelAttribute("usuario")@Validated Usuario usuario, BindingResult result){
 		
-		Avatar avatar = avatarService.getAvatarByUpload(file);
+		if (result.hasErrors()) {
+			return "usuario/cadastro";
+		}
+		
+		Avatar avatar = avatarService.getAvatarByUpload(usuario.getFile());
 		usuario.setAvatar(avatar);
 		usuarioservice.save(usuario);
 		
