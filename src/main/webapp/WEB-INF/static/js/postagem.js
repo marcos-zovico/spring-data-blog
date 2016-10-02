@@ -3,12 +3,17 @@ $(document).ready(function(){
 	$( "#save-ajax" ).submit(function( event ) {
 		  event.preventDefault();
 		  
-		  $.post('/blog/postagem/ajax/save', (this).serialize())
+		  $.post('/blog/postagem/ajax/save', $(this).serialize())
 			  .done(function name(postagem) {
 				 $('#info').empty().append(
 						 "<p>Postagem salva com sucesso!</p> " +
 						 "<p>Abrir Postagem: <a href='/blog/" + postagem.permaLink + "'>" + postagem.titulo + "</a></p>"
 				 );
+				 
+				 $('#save-ajax').each(function() {
+					this.reset();
+				});
+				 
 			   })
 			   .fail(function(error) {
 				  $('#info').empty().append("<p>Error: status" + error.status + "," + errorstatusText+ "</p>");

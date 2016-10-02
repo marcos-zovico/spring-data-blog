@@ -6,13 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Postagem</title>
 <link type="text/css" rel="stylesheet" href="<c:url value="/css/style.css" />">
+<script type="text/javascript" src="<c:url value="/js/jquery-3.1.0.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/postagem.js"/>"></script>
 
 </head>
 <body>
 <c:import url="../menu.jsp"/>
 	<br>
 	<c:url var="save" value="/postagem/ajax/save" />
-	<form id="save-ajax" action="${save}" method="post">
+	<form id="save-ajax" >
 
 		<fieldset>
 			<legend>Cadastro de postagens</legend>

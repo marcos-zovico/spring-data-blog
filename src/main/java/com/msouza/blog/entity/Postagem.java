@@ -47,6 +47,8 @@ public class Postagem extends AbstractPersistable<Long> {
 			joinColumns = @JoinColumn(name = "postagem_id"),
 			inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
+	
+//	@JsonIgnore
 	private List<Categoria> categorias;
 	
 	@OneToMany(mappedBy = "postagem", fetch = FetchType.EAGER)
@@ -106,7 +108,9 @@ public class Postagem extends AbstractPersistable<Long> {
 	}
 
 	public List<Comentario> getComentarios() {
-		Collections.sort(comentarios);
+		if (comentarios != null) {
+			Collections.sort(comentarios);			
+		}
 		return comentarios;
 	}
 
