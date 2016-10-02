@@ -1,4 +1,24 @@
 $(document).ready(function(){
+	
+	$( "#save-ajax" ).submit(function( event ) {
+		  event.preventDefault();
+		  
+		  $.post('/blog/postagem/ajax/save', (this).serialize())
+			  .done(function name(postagem) {
+				 $('#info').empty().append(
+						 "<p>Postagem salva com sucesso!</p> " +
+						 "<p>Abrir Postagem: <a href='/blog/" + postagem.permaLink + "'>" + postagem.titulo + "</a></p>"
+				 );
+			   })
+			   .fail(function(error) {
+				  $('#info').empty().append("<p>Error: status" + error.status + "," + errorstatusText+ "</p>");
+			});
+		  
+		});
+	
+	
+	
+	
 	$(document).on('click', 'button[id*="button_"]', function(){
 		var pageNumber = $(this).val();
 		tbody(pageNumber);
