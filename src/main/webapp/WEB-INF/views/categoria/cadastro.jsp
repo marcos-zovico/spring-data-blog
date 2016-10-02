@@ -22,7 +22,8 @@
 			<div class="campo">
 				<form:label path="descricao">Desrição da categoria</form:label>
 				<br>
-				<form:input path="descricao" type="text" required="true" size="60" />
+				<form:input path="descricao" type="text" />
+				<form:errors path="descricao" cssClass="error" />
 			</div>
 			<div>
 				<input type="submit" value="Salvar"> <input type="reset"

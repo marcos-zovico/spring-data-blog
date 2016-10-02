@@ -19,11 +19,13 @@
 			<legend>Cadastro de autores</legend>
 			<div class="campo">
 				<form:label path="nome">Nome do Autor</form:label><br>
-				<form:input path="nome" type="text" title="Inserir Nome" />
+				<form:input path="nome" type="text" />
+				<form:errors path="nome" cssClass="error"/>
 			</div>
 			<div class="campo">
 				<form:label path="biografia">E-mail</form:label><br>
-				<form:textarea cols="50" rows="10" path="biografia" type="text" required="true" />
+				<form:textarea path="biografia" cols="50" rows="10" type="text" />
+				<form:errors path="biografia" cssClass="error"/>
 			</div>
 			<div>
 				<input type="submit" value="Salvar"> 

@@ -1,3 +1,7 @@
+.error {
+	color: #ff0000;
+}
+
 a:link {
 	text-decoration: none;
 }

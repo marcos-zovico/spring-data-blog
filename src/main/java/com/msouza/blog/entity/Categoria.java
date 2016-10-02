@@ -9,6 +9,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -18,6 +20,8 @@ public class Categoria extends AbstractPersistable<Long> {
 
 	private static final long serialVersionUID = -8015991876502059285L;
 
+	@NotBlank
+	@Length(min = 3, max = 30)
 	@Column(nullable = false, unique = true, length = 30)
 	private String descricao;
 	

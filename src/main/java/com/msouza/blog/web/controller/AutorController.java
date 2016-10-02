@@ -1,12 +1,13 @@
 package com.msouza.blog.web.controller;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,7 +78,11 @@ public class AutorController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@ModelAttribute("autor") Autor autor){
+	public String save(@ModelAttribute("autor")@Validated Autor autor, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "/autor/cadastro";
+		}
 		
 		autorService.save(autor);
 		return "redirect:/autor/perfil/" + autor.getId();
