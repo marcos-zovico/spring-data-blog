@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.msouza.blog.entity.Comentario;
 import com.msouza.blog.entity.Postagem;
@@ -45,8 +46,12 @@ public class HomeController {
 	@RequestMapping(value = "/{permaLink}", method = RequestMethod.GET)
 	public ModelAndView openPostagem(
 			@ModelAttribute("comentario") Comentario comentario,
-			@PathVariable("permaLink") String permaLink, ModelMap model) {
+			@PathVariable("permaLink") String permaLink, ModelMap model) throws NoHandlerFoundException {
 		Postagem postagem = postagemService.findByPermaLink(permaLink);
+		
+		if (postagem == null) {
+			throw new NoHandlerFoundException(null, null, null);
+		}
 
 		model.addAttribute("postagem", postagem);
 		return new ModelAndView("post", model);
@@ -80,8 +85,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
-	public ModelAndView pageHome(@PathVariable("page") Integer pagina, ModelMap model) {
+	public ModelAndView pageHome(@PathVariable("page") Integer pagina, ModelMap model) throws NoHandlerFoundException {
 		Page<Postagem> page = postagemService.findByPagination(pagina -1, 5);
+		
+		if (page.getContent().isEmpty()) {
+			throw new NoHandlerFoundException(null, null, null);
+		}
 		
 		model.addAttribute("page", page);
 		model.addAttribute("urlPagination", "/page");
