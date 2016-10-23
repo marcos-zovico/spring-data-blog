@@ -19,11 +19,13 @@
 			<legend>Cadastro de postagens</legend>
 			<div class="campo">
 				<form:label path="titulo">Título do Post</form:label><br>
-				<form:input path="titulo" type="text" required="true" />
+				<form:input path="titulo" type="text" />
+				<form:errors path="titulo" cssClass="error"/>
 			</div>
 			<div class="campo">
 				<form:label path="texto">Text do Post</form:label><br>
 				<form:textarea path="texto" cols="80" rows="15" />
+				<form:errors path="texto" cssClass="error"/>
 			</div>
 			
 			<div class="campo">

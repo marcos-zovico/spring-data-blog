@@ -17,7 +17,6 @@ public class PerfilEditorSupport extends PropertyEditorSupport {
 			super.setValue(Perfil.LEITOR);
 		}
 		
-		System.out.println("=================" + text +"==================");
 	}
 
 }

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -24,9 +26,12 @@ public class Postagem extends AbstractPersistable<Long> {
 
 	private static final long serialVersionUID = 1L;
 
+	@NotBlank
+	@Length(min = 5, max = 60)
 	@Column(nullable = false, unique = true, length = 60)
 	private String titulo;
 
+	@NotBlank
 	@Column(nullable = false, columnDefinition = "LONGTEXT")
 	private String texto;
 
@@ -40,17 +45,13 @@ public class Postagem extends AbstractPersistable<Long> {
 	@ManyToOne
 	@JoinColumn(name = "autor_id")
 	private Autor autor;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "postagens_has_categorias",
-			joinColumns = @JoinColumn(name = "postagem_id"),
-			inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
-	
-//	@JsonIgnore
+	@JoinTable(name = "postagens_has_categorias", joinColumns = @JoinColumn(name = "postagem_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+
+	// @JsonIgnore
 	private List<Categoria> categorias;
-	
+
 	@OneToMany(mappedBy = "postagem", fetch = FetchType.EAGER)
 	private List<Comentario> comentarios;
 
@@ -109,7 +110,7 @@ public class Postagem extends AbstractPersistable<Long> {
 
 	public List<Comentario> getComentarios() {
 		if (comentarios != null) {
-			Collections.sort(comentarios);			
+			Collections.sort(comentarios);
 		}
 		return comentarios;
 	}
@@ -117,6 +118,5 @@ public class Postagem extends AbstractPersistable<Long> {
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
-	
 
 }

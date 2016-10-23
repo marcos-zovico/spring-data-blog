@@ -4,15 +4,23 @@ $(document).ready(function(){
 		  event.preventDefault();
 		  
 		  $.post('/blog/postagem/ajax/save', $(this).serialize())
-			  .done(function name(postagem) {
-				 $('#info').empty().append(
-						 "<p>Postagem salva com sucesso!</p> " +
-						 "<p>Abrir Postagem: <a href='/blog/" + postagem.permaLink + "'>" + postagem.titulo + "</a></p>"
-				 );
-				 
-				 $('#save-ajax').each(function() {
-					this.reset();
-				});
+			  .done(function name(result) {
+				  
+				  if (result.status != 'FAIL') {
+					 $('#info').empty().append(
+							 "<p>Postagem salva com sucesso!</p> " +
+							 "<p>Abrir Postagem: <a href='/blog/" + result.postagem.permaLink + "'>" + result.postagem.titulo + "</a></p>"
+					 );
+					 
+					 $('#save-ajax').each(function() {
+						this.reset();
+					 });
+					 $('#titulo-error').empty();
+					 $('#texto-error').empty()
+				  } else {
+					  $('#titulo-error').empty().append(result.tituloError);
+					  $('#texto-error').empty().append(result.textoError);
+				  }
 				 
 			   })
 			   .fail(function(error) {
