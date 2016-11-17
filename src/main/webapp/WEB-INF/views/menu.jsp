@@ -25,4 +25,13 @@
     	<nav>
     		<a href="<c:url value="/categoria/add"/>">Categorias</a>
     	</nav>
+    	
+    	<nav>
+    		<a href="<c:url value="/auth/form"/>">Entrar</a>
+    		<a href="">Cadastrar-se</a>
+    		<form action="<c:url value="/logout"/>" method="post">
+    			<security:csrfInput/>
+    			<button type="submit">Sair</button>
+    		</form>
+    	</nav>
     </fieldset>
