@@ -25,9 +25,14 @@
 	</nav>
 
 	<nav>
-		<a href="<c:url value="/postagem/add"/>">Add Postagem</a> <a
-			href="<c:url value="/postagem/list"/>">List Postagens</a> <a
-			href="<c:url value="/postagem/ajax/add"/>">Add Postagem Ajax</a>
+		<security:authorize access="hasAuthority('AUTOR')"> 
+			<a href="<c:url value="/postagem/add"/>">Nova Postagem</a> 
+			<a href="<c:url value="/postagem/ajax/add"/>">Nova Postagem Ajax</a>
+			<a href="<c:url value="/postagem/list/${logado.id}"/>">Lista de Postagens</a> 
+		</security:authorize>
+		<security:authorize access="hasAuthority('ADMIN')"> 
+			<a href="<c:url value="/postagem/list"/>">Lista de Postagens</a> 
+		</security:authorize>
 	</nav>
 
 	<nav>

@@ -17,7 +17,7 @@
 			<input id="search" type="search" placeholder="Busca por titulo" value="">
 		</div>
 		
-		<table id="table-ajax" class="table">
+		<table id="table-ajax" class="table" title="${ autorId != null ? autorId : 0 }">
 			<jsp:include page="table-rows.jsp"/>
 		</table>
 		

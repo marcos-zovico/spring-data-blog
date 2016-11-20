@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.msouza.blog.entity.Postagem;
+import com.msouza.blog.service.AutorService;
 import com.msouza.blog.service.CategoriaService;
 import com.msouza.blog.service.PostagemService;
 import com.msouza.blog.web.editor.CategoriaEditorSupport;
@@ -32,6 +33,9 @@ public class PostagemController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+	
+	@Autowired
+	private AutorService autorService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -57,10 +61,36 @@ public class PostagemController {
 		return validator;
 	}
 	
+	
+	@RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
+	public ModelAndView listPostagensByAutor(@PathVariable("id") Long id, ModelMap model) {
+
+		Long autorId = autorService.findByUsuario(id).getId();
+		
+		Page<Postagem> page = postagemService.findByPaginationByAutor(0, 5, autorId);
+		model.addAttribute("page", page);
+		model.addAttribute("autorId", autorId);
+		
+		return new ModelAndView("postagem/list");
+
+	}
+	
 	@RequestMapping(value = "/ajax/add", method = RequestMethod.GET)
 	public ModelAndView cadastroAjax() {
 		ModelAndView view = new ModelAndView("postagem/cadastro-ajax");
 		view.addObject("categorias", categoriaService.findAll());
+		return view;
+	}
+	
+	@RequestMapping(value = "/ajax/autor/{id}/page/{page}", method = RequestMethod.GET)
+	public ModelAndView pagePostagens(@PathVariable("id") Long id, @PathVariable("page") Integer pagina) {
+		
+		ModelAndView view = new ModelAndView("postagem/table-rows"); 
+		
+		Page<Postagem> page = postagemService.findByPaginationByAutor(pagina - 1, 5, id);
+		
+		view.addObject("page", page);
+		
 		return view;
 	}
 
