@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.msouza.blog.entity.Postagem;
+import com.msouza.blog.entity.UsuarioLogado;
 import com.msouza.blog.service.AutorService;
 import com.msouza.blog.service.CategoriaService;
 import com.msouza.blog.service.PostagemService;
@@ -43,25 +45,46 @@ public class PostagemController {
 				List.class, categoriaService));
 	}
 	
-	@RequestMapping(value = "/ajax/save", method = RequestMethod.POST )
-	public @ResponseBody PostagemAjaxValidator saveAjax(@Validated Postagem postagem, BindingResult result){
+	@RequestMapping(value = "/ajax/autor/{id}/titulo/{titulo}/page/{page}", method = RequestMethod.GET)
+	public ModelAndView searchByAjaxByAutor(@PathVariable("id") Long id,
+											@PathVariable("titulo") String titulo,
+									        @PathVariable("page") Integer pagina) {
+		
+		ModelAndView view = new ModelAndView("postagem/table-rows"); 
+		
+		Page<Postagem> page = postagemService.findByTituloAndAutor(pagina - 1 , 5, titulo, id);
+		
+		view.addObject("page", page);
+		
+		return view;
+	}
+	
+	@RequestMapping(value = "/ajax/save", method = RequestMethod.POST)
+	public @ResponseBody PostagemAjaxValidator saveAjax(@Validated Postagem postagem, 
+			                                            BindingResult result, 
+			                                            @AuthenticationPrincipal UsuarioLogado logado) {
 		
 		PostagemAjaxValidator validator = new PostagemAjaxValidator();
 		
-		if (result.hasErrors()) {
+		if ( result.hasErrors() ) {
+			
 			validator.setStatus("FAIL");
+			
 			validator.validar(result);
 			
 			return validator;
 		}
 		
+		postagem.setAutor(autorService.findByUsuario(logado.getId()));
+		
 		postagemService.saveOrUpdate(postagem);
+		
 		validator.setPostagem(postagem);
 		
 		return validator;
 	}
 	
-	
+
 	@RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
 	public ModelAndView listPostagensByAutor(@PathVariable("id") Long id, ModelMap model) {
 
@@ -150,16 +173,19 @@ public class PostagemController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("postagem") @Validated Postagem postagem, BindingResult result) {
+	public ModelAndView save(@ModelAttribute("postagem") @Validated Postagem postagem,
+			           BindingResult result, @AuthenticationPrincipal UsuarioLogado logado) {
 		
-		if (result.hasErrors()) {
+		if ( result.hasErrors() ) {
+			
 			return new ModelAndView("postagem/cadastro", "categorias", categoriaService.findAll());
 		}
-
+		
+		postagem.setAutor(autorService.findByUsuario(logado.getId()));
+		
 		postagemService.saveOrUpdate(postagem);
-
-		return new ModelAndView("redirect:/postagem/list");
-
+		
+		return new ModelAndView("redirect:/postagem/list/" + logado.getId());
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
