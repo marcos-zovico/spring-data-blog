@@ -19,8 +19,7 @@ public class UsuarioValidator implements Validator {
 		Usuario usuario = (Usuario) target;
 
 		if (usuario.getNome() != null) {
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nome", "nome",
-					"Este campo é obrigatório");
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nome", "nome", "Este campo ï¿½ obrigatï¿½rio");
 		}
 
 		if (usuario.getEmail() != null) {
@@ -29,25 +28,22 @@ public class UsuarioValidator implements Validator {
 			Matcher matcher = pattern.matcher(usuario.getEmail());
 
 			if (!matcher.matches()) {
-				errors.rejectValue("email", "email",
-						"Inseira um e-mail valido.");
+				errors.rejectValue("email", "email", "Inseira um e-mail valido.");
 			}
 
 		}
 
 		if (usuario.getSenha() != null) {
 
-			if (usuario.getSenha().length() > 8
-					|| usuario.getSenha().length() < 5) {
-				errors.rejectValue("senha", "senha",
-						"A senha deve conter entre 8 e cinco caraxteres.");
+			if (usuario.getSenha().length() > 8	|| usuario.getSenha().length() < 5) {
+				errors.rejectValue("senha", "senha", "A senha deve conter entre 8 e cinco caracteres.");
 			}
 		}
 		
 		if (usuario.getFile() != null) {
 			
 			if (usuario.getFile().getSize() == 0) {
-				errors.rejectValue("file", "file", "Selecione uma mensagem ate 100kb.");
+				errors.rejectValue("file", "file", "Selecione uma arquivo ate 100kb.");
 			}
 		}
 

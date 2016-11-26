@@ -38,14 +38,6 @@
 				<form:input path="file" type="file" />
 				<form:errors path="file" cssClass="error"/>
 			</div>
-			<div class="campo">
-				<form:label path="perfil">Perfil</form:label><br>
-				<form:select path="perfil" >
-					<form:option value="ADMIN" label="ADMIN" />
-					<form:option value="AUTOR" label="AUTOR" />
-					<form:option value="LEITOR" label="LEITOR" />
-				</form:select>
-			</div>
 			<div>
 				<input type="submit" value="Salvar"> 
 				<input type="reset"	value="Limpar">

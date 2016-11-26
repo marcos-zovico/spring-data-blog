@@ -30,7 +30,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 						 "/autor/{id}/page/{page}",
 						 "/categoria/{link}/page/{page}",
 						 "/page/{page}",
-						 "/avatar/load/{id}").permitAll()
+						 "/avatar/load/{id}",
+						 "/usuario/add").permitAll()
 	
 			.anyRequest().authenticated()
 		
