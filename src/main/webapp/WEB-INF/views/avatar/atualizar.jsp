@@ -12,7 +12,7 @@
 <body>
 	<c:import url="../menu.jsp" />
 	<br>
-	<c:url var="save" value="/avatar/update" />
+	<c:url var="save" value="/avatar/update?${_csrf.parameterName}=${_csrf.token}" />
 	<form:form modelAttribute="avatar" action="${save}" method="post"
 														enctype="multipart/form-data">
 		<form:hidden path="id" />

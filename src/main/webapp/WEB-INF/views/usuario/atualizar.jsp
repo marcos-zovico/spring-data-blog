@@ -12,8 +12,7 @@
 <body>
 	<c:import url="../menu.jsp" />
 	<br>
-	<fieldset>
-		<legend>Editar dados do pefil</legend>
+
 		<c:url var="save" value="/usuario/update/senha" />
 		<form:form modelAttribute="usuario" action="${save}" method="post">
 			<form:hidden path="id" />
@@ -76,8 +75,6 @@
 		</form:form>
 		</security:authorize>
 
-
-	</fieldset>
 
 </body>
 </html>

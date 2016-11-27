@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.msouza.blog.entity.Avatar;
+import com.msouza.blog.entity.Perfil;
 import com.msouza.blog.entity.Usuario;
 import com.msouza.blog.repository.UsuarioRepository;
 
@@ -26,7 +27,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 	
-	public Page<Usuario> findByPaginationOrdeByField(int page, int size, String field, String order){
+	public Page<Usuario> findByPaginationOrderByField(int page, int size, String field, String order){
 		Sort sort = new Sort(new Order(Direction.fromString(order), field));
 	
 		return repository.findAll(new PageRequest(page, size, sort));
@@ -53,6 +54,7 @@ public class UsuarioService {
 
 		String hash = new BCryptPasswordEncoder().encode(usuario.getSenha());
 		usuario.setSenha(hash);
+		usuario.setPerfil(Perfil.LEITOR);
 
 		repository.save(usuario);
 	}
@@ -84,6 +86,15 @@ public class UsuarioService {
 		usuario.setSenha(hash);
 		repository.updateSenha(usuario.getSenha(), usuario.getId());
 
+	}
+
+	@Transactional
+	public void updatePerfil(Usuario usuario) {
+		
+		Usuario persistente = repository.findOne(usuario.getId());
+		persistente.setPerfil(usuario.getPerfil());
+		
+		repository.save(persistente);
 	}
 
 }
