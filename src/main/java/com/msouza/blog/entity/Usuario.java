@@ -14,12 +14,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario extends AbstractPersistable<Long> {
+public class Usuario extends AbstractAuditoria<Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,17 +41,12 @@ public class Usuario extends AbstractPersistable<Long> {
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "avatar_id")
 	private Avatar avatar;
-	
+
 	@Transient
 	private MultipartFile file;
-	
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Comentario> comentarios;
-	
-	@Override
-	public void setId(Long id) {
-		super.setId(id);
-	}
 
 	public String getNome() {
 		return nome;
@@ -117,8 +111,5 @@ public class Usuario extends AbstractPersistable<Long> {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-	
-	
 
-	
 }
