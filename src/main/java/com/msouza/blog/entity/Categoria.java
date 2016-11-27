@@ -11,11 +11,10 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 @Table(name =  "categorias")
-public class Categoria extends AbstractPersistable<Long> {
+public class Categoria extends AbstractAuditoria<Long> {
 
 
 	private static final long serialVersionUID = -8015991876502059285L;
@@ -36,11 +35,7 @@ public class Categoria extends AbstractPersistable<Long> {
 	)
 	private List<Postagem> postagens;
 	
-	@Override
-	public void setId(Long id) {
-		super.setId(id);
-	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}

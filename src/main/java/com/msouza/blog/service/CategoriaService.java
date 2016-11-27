@@ -51,9 +51,17 @@ public class CategoriaService {
 	@Transactional(readOnly = false)
 	public void saveOrUpdate(Categoria categoria){
 		String permaLink = MyReplaceString.formatarPermaLink(categoria.getDescricao());
-		categoria.setPermaLink(permaLink);
 		
-		repository.save(categoria);
+		if (categoria.getId() != null) {
+			Categoria persistente = repository.findOne(categoria.getId());
+			persistente.setDescricao(categoria.getDescricao());
+			persistente.setPermaLink(permaLink);
+			repository.save(persistente);
+		} else {
+			categoria.setPermaLink(permaLink);			
+			repository.save(categoria);
+		}
+		
 	}
 	
 	

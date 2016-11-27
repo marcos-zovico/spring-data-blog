@@ -42,8 +42,15 @@ public class UsuarioService {
 
 	@Transactional(readOnly = false)
 	public void updateNameAndEmail(Usuario usuario) {
-		repository.updateNameAndEmail(usuario.getNome(), usuario.getEmail(),
-				usuario.getId());
+		
+		Usuario persistente = repository.findOne(usuario.getId());
+		
+		persistente.setNome(usuario.getNome());
+		persistente.setEmail(usuario.getEmail());
+		
+		repository.save(persistente);
+		
+		// repository.updateNameAndEmail(usuario.getNome(), usuario.getEmail(), usuario.getId());
 	}
 
 	@Transactional(readOnly = false)
@@ -82,9 +89,16 @@ public class UsuarioService {
 
 	@Transactional(readOnly = false)
 	public void updateSenha(Usuario usuario) {
+		
+		Usuario persistente = repository.findOne(usuario.getId());
+		
 		String hash = new BCryptPasswordEncoder().encode(usuario.getSenha());
-		usuario.setSenha(hash);
-		repository.updateSenha(usuario.getSenha(), usuario.getId());
+		
+		persistente.setSenha(hash);
+		
+		repository.save(persistente);
+		
+//		repository.updateSenha(usuario.getSenha(), usuario.getId());
 
 	}
 
